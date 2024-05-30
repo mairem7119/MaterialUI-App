@@ -6,6 +6,8 @@ import {
   ListItem,
   Toolbar,
   Typography,
+  CssBaseline,
+  Box,
 } from "@mui/material";
 import React from "react";
 import { BrowserRouter, Link, Routes, Route } from "react-router-dom";
@@ -29,17 +31,21 @@ const simpleStyles = {
   },
   content: {
     flexGrow: 1,
-    padding: '64px 16px 16px 16px',
+    padding: "24px", // Adjust padding as needed
     marginLeft: drawerWidth,
-    height: '100vh',
+    marginTop: "64px", // Adjust margin to push content below the AppBar
+  },
+  appBar: {
+    zIndex: 1300, // Ensure AppBar is above other content
   },
 };
 
 export default function NavDrawer() {
   return (
     <BrowserRouter>
-      <div style={{ display: 'flex' }}>
-        <AppBar position="fixed" sx={{ zIndex: 99999 }}>
+      <Box sx={{ display: "flex" }}>
+        <CssBaseline />
+        <AppBar position="fixed" sx={simpleStyles.appBar}>
           <Toolbar>
             <Typography variant="h6" noWrap>
               Advanced Material UI
@@ -47,7 +53,7 @@ export default function NavDrawer() {
           </Toolbar>
         </AppBar>
         <Drawer
-          variant="temporary"
+          variant="persistent"
           open={true}
           sx={simpleStyles.drawer}
           PaperProps={{ sx: simpleStyles.drawerPaper, elevation: 9 }}
@@ -65,16 +71,16 @@ export default function NavDrawer() {
             ))}
           </List>
         </Drawer>
-        <main style={simpleStyles.content}>
+        <Box component="main" sx={simpleStyles.content}>
           <Routes>
-            <Route path={"/"} element={<ContactForm />} />
-            <Route path={"/form"} element={<ContactForm />} />
-            <Route path={"/grid"} element={<ContactCardGrid />} />
-            <Route path={"/table"} element={<ContactTable />} />
-            <Route path={"/contact-data"} element={<ContactDataGrid />} />
+            <Route path="/" element={<ContactForm />} />
+            <Route path="/form" element={<ContactForm />} />
+            <Route path="/grid" element={<ContactCardGrid />} />
+            <Route path="/table" element={<ContactTable />} />
+            <Route path="/contact-data" element={<ContactDataGrid />} />
           </Routes>
-        </main>
-      </div>
+        </Box>
+      </Box>
     </BrowserRouter>
   );
 }
