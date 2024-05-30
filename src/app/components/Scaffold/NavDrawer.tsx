@@ -14,18 +14,44 @@ import ContactTable from "../Table/ContactTable";
 import ContactCardGrid from "../Grid/ContactCardGrid";
 import ContactDataGrid from "../DataGrid/ContactDataGrid";
 
+const drawerWidth = 240;
+
+const simpleStyles = {
+  drawer: {
+    width: drawerWidth,
+    "& .MuiBackdrop-root": {
+      display: "none",
+    },
+  },
+  drawerPaper: {
+    width: drawerWidth,
+    backgroundColor: "rgba(120,120,120, 0.2)",
+  },
+  content: {
+    flexGrow: 1,
+    padding: '64px 16px 16px 16px',
+    marginLeft: drawerWidth,
+    height: '100vh',
+  },
+};
+
 export default function NavDrawer() {
   return (
     <BrowserRouter>
-      <div>
-        <AppBar position="fixed">
+      <div style={{ display: 'flex' }}>
+        <AppBar position="fixed" sx={{ zIndex: 99999 }}>
           <Toolbar>
             <Typography variant="h6" noWrap>
               Advanced Material UI
             </Typography>
           </Toolbar>
         </AppBar>
-        <Drawer variant="temporary" open={true}>
+        <Drawer
+          variant="temporary"
+          open={true}
+          sx={simpleStyles.drawer}
+          PaperProps={{ sx: simpleStyles.drawerPaper, elevation: 9 }}
+        >
           <List>
             {[
               { text: "Input Form", route: "/form" },
@@ -39,7 +65,7 @@ export default function NavDrawer() {
             ))}
           </List>
         </Drawer>
-        <main>
+        <main style={simpleStyles.content}>
           <Routes>
             <Route path={"/"} element={<ContactForm />} />
             <Route path={"/form"} element={<ContactForm />} />
